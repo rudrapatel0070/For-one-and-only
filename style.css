@@ -35,6 +35,11 @@ body {
   position: relative;
 }
 
+body.lock-scroll {
+  overflow: hidden !important;
+  height: 100vh;
+}
+
 /* Global Starry Background */
 body::before {
   content: '';
@@ -412,6 +417,14 @@ body::before {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+}
+
+.nav-dots.visible {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .dot {
@@ -1376,7 +1389,7 @@ body::before {
 .letter-word {
   opacity: 0;
   transform: translateY(3px);
-  transition: all 0.6s ease-out;
+  transition: all 0.4s ease-out;
   display: inline-block;
   margin-right: 0.35em;
 }
@@ -1706,7 +1719,7 @@ body::before {
 .letter-word {
   opacity: 0;
   transform: translateY(5px);
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .letter-word.visible {
