@@ -407,42 +407,7 @@ body::before {
   }
 }
 
-/* ===== NAV DOTS ===== */
-.nav-dots {
-  position: fixed;
-  right: 24px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 999;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.8s ease;
-}
 
-.nav-dots.visible {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.25);
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.dot.active,
-.dot:hover {
-  background: var(--pink);
-  transform: scale(1.4);
-  box-shadow: 0 0 10px var(--pink);
-}
 
 /* ===== SECTIONS BASE ===== */
 .section {
@@ -1812,9 +1777,7 @@ body::before {
     align-items: center;
   }
 
-  .nav-dots {
-    right: 12px;
-  }
+
 
   /* MODAL RESPONSIVE FIX */
   .modal-content {

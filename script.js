@@ -599,15 +599,12 @@ function startILYShower() {
 // ─── SCROLL OBSERVER ─────────────────────────────────────────
 function initScrollObserver() {
   const sections = document.querySelectorAll(".section");
-  const dots = document.querySelectorAll(".dot");
   let finaleAnimated = false;
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
       const idx = Array.from(sections).indexOf(entry.target);
-      dots.forEach(d => d.classList.remove("active"));
-      if (dots[idx]) dots[idx].classList.add("active");
 
       // Section-specific effects
       if (idx === 2) animateTimeline();
@@ -625,7 +622,6 @@ function initScrollObserver() {
 
 function beginExperience() {
   document.body.classList.remove("lock-scroll");
-  document.getElementById("nav-dots").classList.add("visible");
   scrollToSection(1);
   // Start typing after a small delay to allow scroll to complete or start
   setTimeout(() => startLetterTyping(), 500);
