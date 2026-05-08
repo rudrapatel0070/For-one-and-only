@@ -207,6 +207,7 @@ function unlockSite() {
       main.classList.remove("hidden");
       main.style.animation = "unlockReveal 0.8s ease forwards";
       window.scrollTo(0, 0); // Reset scroll to top
+      document.body.classList.add("lock-scroll");
       initMainSite();
     }, 800);
   }, 1200);
@@ -224,7 +225,7 @@ function initMainSite() {
 
   initScrollObserver();
   // generateBalloons(); // Removed as requested
-  setTimeout(() => startLetterTyping(), 600);
+  // startLetterTyping() removed from here to trigger only on button click
 }
 
 // ─── FLOATING HEARTS ──────────────────────────────────────────
@@ -270,6 +271,9 @@ function startLetterTyping() {
   });
 
   const wordSpans = el.querySelectorAll(".letter-word");
+  const totalDuration = 20000; // Total duration in ms
+  const intervalTime = totalDuration / wordSpans.length;
+
   let i = 0;
   const interval = setInterval(() => {
     if (i >= wordSpans.length) {
@@ -278,7 +282,7 @@ function startLetterTyping() {
     }
     wordSpans[i].classList.add("visible");
     i++;
-  }, 250); // Slower for a more poetic, thoughtful feel
+  }, intervalTime);
 }
 
 // ─── REASON CARDS ─────────────────────────────────────────────
@@ -632,8 +636,7 @@ function initScrollObserver() {
       dots.forEach(d => d.classList.remove("active"));
       if (dots[idx]) dots[idx].classList.add("active");
 
-      // Trigger section-specific effects
-      if (idx === 1 && !letterStarted) startLetterTyping();
+      // Section-specific effects
       if (idx === 2) animateTimeline();
       if (idx === 7 && !finaleAnimated) {
         finaleAnimated = true;
@@ -645,6 +648,14 @@ function initScrollObserver() {
   }, { threshold: 0.5 });
 
   sections.forEach(s => observer.observe(s));
+}
+
+function beginExperience() {
+  document.body.classList.remove("lock-scroll");
+  document.getElementById("nav-dots").classList.add("visible");
+  scrollToSection(1);
+  // Start typing after a small delay to allow scroll to complete or start
+  setTimeout(() => startLetterTyping(), 500);
 }
 
 function scrollToSection(idx) {
