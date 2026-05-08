@@ -21,32 +21,34 @@ Thank you for being you.Thank you for being mine. `;
 const REASONS = [
   { emoji: "😂", text: "Your laugh makes my whole day better instantly" },
   { emoji: "💪", text: "How strong you are, even when things are hard" },
-  { emoji: "🌙", text: "The way you look when you're lost in thought" },
-  { emoji: "🍕", text: "Your taste in food (and that you share it with me!)" },
-  { emoji: "🤗", text: "Your hugs that make everything feel okay" },
-  { emoji: "✨", text: "How you light up every room you walk into" },
+  { emoji: "👀", text: "The way you look at me" },
+  { emoji: "🤌🏻", text: "Your sweetness towards me" },
+  { emoji: "🤗", text: "Your hugs that make everything feel safe" },
+  { emoji: "✨", text: "How you light up my world" },
   { emoji: "💬", text: "The way you listen like I'm the only person in the world" },
   { emoji: "🌻", text: "Your kindness — it's rare and it's beautiful" },
   { emoji: "🎨", text: "The way you see beauty in little things" },
-  { emoji: "🔥", text: "That fire in you when you're passionate about something" },
+  { emoji: "🔥", text: "your hotness, out of the world, like sun" },
   { emoji: "🌈", text: "How you make even bad days feel colorful" },
   { emoji: "💖", text: "Everything about you. Absolutely everything." },
 ];
 
 const TIMELINE = [
-  { date: "Dec 10, 2022", title: "The Beginning", desc: "The day our worlds collided for the first time. The best start to the best story.", emoji: "✨" },
-  { date: "Feb 14, 2023", title: "First Valentine's", desc: "A day filled with nervous smiles and realizing how special this truly was.", emoji: "🌹" },
-  { date: "Aug 14, 2023", title: "A Summer to Remember", desc: "Laughter, sun, and knowing that I never wanted to spend a season without you.", emoji: "☀️" },
-  { date: "Dec 10, 2023", title: "One Year Strong", desc: "365 days of choosing you, and I'd do it all over again in a heartbeat.", emoji: "💍" },
+  { date: "Aug 14, 2006 & May 03, 2006", title: "The Beginning", desc: "The dates on which our story was about to begin. The best start to the best story. - OUR BIRTH", emoji: "✨" },
+  { date: "Nov 07, 2021", title: "Muh deekhai", desc: "A day on which our path crossed for the first time ever, We saw each other for the first time.", emoji: "😍" },
+  { date: "Dec 10, 2022", title: "The couragous step", desc: "The day when i asked you to be mine and you said yes, unbelievable right?, but true.", emoji: "🙈" },
+  { date: "Dec 18, 2022", title: "First Hug", desc: "Shaking arms, light speed heartbeat, but a warm place where everything was calm and comfort.", emoji: "🫂" },
+  { date: "Jan 16, 2023", title: "Lips HUG?", desc: "The most amazing moment of my life, It was magical. I can still feel your lips, all the time.", emoji: "😘" },
+  { date: "April 20 - 24, 2024", title: "Best and First Trip", desc: "I still remember the way we looked at each other in the whole trip, just pure and innocent LOVE.", emoji: "😆" },
   { date: "Today", title: "Our Forever", desc: "Every day since has been a gift. I can't wait for all the chapters we haven't written yet.", emoji: "♾️" },
 ];
 
 const ENVELOPES = [
   { label: "Open when you miss me", emoji: "🥺", text: "Just remember that I am only a heartbeat away. Close your eyes, take a deep breath, and feel my arms around you. I'm always with you, always." },
-  { label: "Open when you're happy", emoji: "☀️", text: "Your happiness is my favorite thing in the world! Keep that beautiful smile shining—it's the most gorgeous thing I've ever seen. I love seeing you glow!" },
-  { label: "Open when you need a laugh", emoji: "😂", text: "Remember that time we couldn't stop laughing at absolutely nothing? You have the best laugh in the universe. Now go do something silly and smile for me!" },
+  { label: "Open when you're happy", emoji: "😁", text: "Your happiness is my favorite thing in the world! Keep that beautiful smile shining—it's the most gorgeous thing I've ever seen. I love seeing you glow!" },
+  { label: "Open when you need a laugh", emoji: "😂", text: "Just remember My face whenever you have annoyed me, this is enough to make you laugh non-stop." },
   { label: "Open when you're stressed", emoji: "🍵", text: "Take a moment for yourself. You are doing amazing, and I am so proud of you. Everything will be okay because you are stronger than you know." },
-  { label: "Open when you can't sleep", emoji: "🌙", text: "I'm probably thinking about you right now too. Imagine us stargazing together, peaceful and quiet. Dream of our next adventure. Goodnight, my love." },
+  { label: "Open when you can't sleep", emoji: "🌙", text: "I'm probably thinking about you right now too. Imagine us stargazing together, peaceful and quiet, imagine I will be next to you one day, holding your hand, and we will be sleeping together, just you and me, for now Goodnight, my love." },
   { label: "Open when you need a hug", emoji: "🫂", text: "Consider this a digital squeeze! I'm holding you tight in my thoughts. I can't wait for the next time I get to hold you for real." },
 ];
 
@@ -337,6 +339,7 @@ function animateTimeline() {
 // ─── OPEN WHEN ENVELOPES ──────────────────────────────────────
 function buildEnvelopes() {
   const grid = document.getElementById("envelopes-grid");
+  if (!grid) return;
   ENVELOPES.forEach((env, idx) => {
     const card = document.createElement("div");
     card.className = "envelope-card";
@@ -345,7 +348,10 @@ function buildEnvelopes() {
       <h3 class="envelope-label">${env.label}</h3>
       <span class="envelope-tap">Click to open</span>
     `;
-    card.onclick = () => openEnvelope(idx);
+    card.addEventListener("click", () => {
+      console.log("Envelope clicked:", idx);
+      openEnvelope(idx);
+    });
     grid.appendChild(card);
   });
 }
@@ -353,19 +359,22 @@ function buildEnvelopes() {
 function openEnvelope(idx) {
   const env = ENVELOPES[idx];
   const modal = document.getElementById("envelope-modal");
+
+  if (!env || !modal) return;
+
   document.getElementById("modal-emoji").textContent = env.emoji;
   document.getElementById("modal-title").textContent = env.label;
   document.getElementById("modal-text").textContent = env.text;
 
-  modal.classList.remove("hidden");
-  modal.style.display = "flex";
+  modal.classList.add("active");
   document.body.style.overflow = "hidden"; // Prevent scroll
 }
 
 function closeEnvelope() {
   const modal = document.getElementById("envelope-modal");
-  modal.classList.add("hidden");
-  modal.style.display = "none";
+  if (modal) {
+    modal.classList.remove("active");
+  }
   document.body.style.overflow = "auto";
 }
 
@@ -585,43 +594,7 @@ function startILYShower() {
   }, 400); // Slightly slower interval for cleaner look
 }
 
-// ─── COUNTER ANIMATION ────────────────────────────────────────
-function animateCounters() {
-  // Dynamically calculate days of happiness
-  document.querySelectorAll(".stat-card").forEach(card => {
-    const label = card.querySelector(".stat-label");
-    const number = card.querySelector(".stat-number");
-    if (label && label.textContent.toLowerCase().includes("days of happiness") && number) {
-      const start = new Date(START_DATE);
-      const now = new Date();
-      const diff = now - start;
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      number.dataset.target = days;
-    }
-  });
-
-  document.querySelectorAll(".stat-number[data-target]").forEach(el => {
-    const targetValue = el.getAttribute("data-target");
-    if (!targetValue || isNaN(targetValue)) return;
-
-    const target = parseInt(targetValue);
-    let current = 0;
-    const duration = 2000; // 2 seconds
-    const fps = 60;
-    const totalFrames = (duration / 1000) * fps;
-    const step = target / totalFrames;
-
-    const interval = setInterval(() => {
-      current += step;
-      if (current >= target) {
-        el.textContent = target.toLocaleString();
-        clearInterval(interval);
-      } else {
-        el.textContent = Math.floor(current).toLocaleString();
-      }
-    }, 1000 / fps);
-  });
-}
+// (Duplicate animateCounters removed)
 
 // ─── SCROLL OBSERVER ─────────────────────────────────────────
 function initScrollObserver() {

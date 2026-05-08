@@ -1477,33 +1477,50 @@ body::before {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(13, 0, 21, 0.7); /* Lighter background to show blur more clearly */
-  backdrop-filter: blur(15px); /* Strong blur */
+  background: rgba(13, 0, 21, 0.85); /* Slightly darker for better contrast */
+  backdrop-filter: blur(15px);
   z-index: 9999;
-  display: none;
+  display: flex; /* Always flex, control with opacity/visibility */
   align-items: center;
   justify-content: center;
   padding: 24px;
-  transition: all 0.3s ease;
-}
-
-.modal-overlay.hidden {
   opacity: 0;
   pointer-events: none;
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
 }
 
 .modal-content {
   background: linear-gradient(135deg, #200040, #150025);
-  border: 1px solid rgba(255, 107, 157, 0.3); /* Themed border */
+  border: 1px solid rgba(255, 107, 157, 0.3);
   border-radius: 32px;
   max-width: 500px;
-  width: 100%;
-  padding: 48px 32px;
+  width: 95%; /* Use more width on small screens */
+  max-height: 85vh; /* Prevent it from being taller than the screen */
+  overflow-y: auto; /* Allow scrolling if text is long */
+  padding: 40px 24px;
   position: relative;
   text-align: center;
-  /* Even glow around the box */
   box-shadow: 0 0 50px rgba(255, 107, 157, 0.3), 0 0 100px rgba(199, 125, 255, 0.15);
   animation: modalIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Custom scrollbar for the modal */
+.modal-content::-webkit-scrollbar {
+  width: 6px;
+}
+.modal-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+.modal-content::-webkit-scrollbar-thumb {
+  background: var(--pink);
+  border-radius: 10px;
 }
 
 @keyframes modalIn {
@@ -1797,6 +1814,26 @@ body::before {
 
   .nav-dots {
     right: 12px;
+  }
+
+  /* MODAL RESPONSIVE FIX */
+  .modal-content {
+    padding: 32px 20px;
+    border-radius: 24px;
+  }
+
+  .modal-emoji {
+    font-size: 3rem;
+    margin-bottom: 12px;
+  }
+
+  .modal-title {
+    font-size: 1.5rem;
+  }
+
+  .modal-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
   }
 
   /* TIMELINE MOBILE FIXES - Focusing on fitting messages */
